@@ -46,7 +46,13 @@ class Chat extends Component {
 
   render() {
     return (
-      <Conversation height={300} messages={this.state.messageList} turnOffLoop/>
+      <div>
+        <Conversation height={300} messages={this.state.messageList} turnOffLoop/>
+        <input 
+          type="text"
+          className="Writer"
+        />
+      </div>
     );
   }
 }
