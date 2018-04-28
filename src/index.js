@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Chat from './Chat.js';
+import Talk from './Talk.js';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Chat />, document.getElementById('root'));
+ReactDOM.render(<Talk />, document.getElementById('root'));
 registerServiceWorker();

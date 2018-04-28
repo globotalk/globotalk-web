@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
-import Conversation from 'chat-template/dist/Conversation';
+import Chat from 'chat-template/dist/Chat';
 
-class Chat extends Component {
+class Talk extends Component {
 
   constructor() {
     super()
@@ -24,34 +24,11 @@ class Chat extends Component {
       }],
     };
   }
-
-  _onMessageWasSent(message) {
-    this.setState({
-      messageList: [...this.state.messageList, message]
-    })
-  }
-
-  _sendMessage(text) {
-    console.log(text);
-    if (text.length > 0) {
-      this.setState({
-        messageList: [...this.state.messageList, {
-          author: 'them',
-          type: 'text',
-          data: { text }
-        }]
-      })
-    }
-  }
-
+  
   render() {
     return (
       <div>
-        <Conversation height={300} messages={this.state.messageList} turnOffLoop/>
-        <input 
-          type="text"
-          className="Writer"
-        />
+          <Chat messages={this.state.messageList} turnOffLoop />
       </div>
     );
   }
