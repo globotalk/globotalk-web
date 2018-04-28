@@ -89,7 +89,9 @@ class Chatroom extends React.Component {
                 </ul>
                 <form className="input" onSubmit={(e) => this.submitMessage(e)}>
                     <input type="text" ref="msg" />
-                    <input type="submit" value="Submit" />
+                    <button type="submit">
+                        <i className="fas fa-caret-right"></i>
+                    </button>
                 </form>
             </div>
         );
