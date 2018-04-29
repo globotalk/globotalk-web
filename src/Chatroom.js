@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import logo from './logo-globochat.svg'; 
 
 import Message from './Message.js';
 
@@ -79,7 +79,7 @@ class Chatroom extends React.Component {
 
         return (
             <div className="chatroom">
-                <h3>globo talk</h3>
+                <h3><img src={logo} className="logo"/></h3>
                 <ul className="chats" ref="chats">
                     {
                         chats.map((chat) => 

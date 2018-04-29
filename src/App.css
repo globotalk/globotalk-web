@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 body {
   margin: 0;
+  font-family: Open Sans,sans-serif;
+  font-weight: 400;
 }
 
 p {
@@ -15,6 +17,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.App .logo {
+  width: 50%;
 }
 
 .chatroom {
