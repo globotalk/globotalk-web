@@ -41,6 +41,7 @@ class Home extends React.Component {
                         <p>Você está assistindo a...</p>
                         <p>{video.title}</p>
                         <img src={video.image}/>
+                        <button className="talk">talk!</button>
                     </div>
                 : null }
             </div>
