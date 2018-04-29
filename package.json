@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chat-template": "0.0.26",
+    "lodash": "^4.17.10",
     "react": "15.1.0",
     "react-dom": "15.1.0",
     "react-scripts": "1.1.4"
