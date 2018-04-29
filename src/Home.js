@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import logo from './logo-globotalk.svg';
+import logo from './logo-globotalk.png';
 import './Home.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
