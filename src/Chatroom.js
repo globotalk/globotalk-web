@@ -5,7 +5,9 @@ import axios from 'axios';
 import './App.css';
 import Message from './Message.js';
 import _ from 'lodash';
+
 const url = 'https://globotalk-back.herokuapp.com';
+// const url = 'http://localhost:3000';
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -30,8 +32,12 @@ class Chatroom extends React.Component {
     getMessages(obj) {
         return axios.get(url + '/all?video_id=6328393').then(function (response) {
             if (response.status == 200 && response.data.length !== obj.state.chats.length) {
+                var msgs = _.map(response.data, function(obj) {
+                    return _.assign(obj, _.find(obj, {message: obj.message}));
+                });
+                msgs = _.sortBy(msgs, 'timestamp')
                 obj.setState({
-                    chats: _.merge(response.data, obj.state.chats)
+                    chats: msgs
                 });
             }
         }).catch(function (error) {
@@ -54,22 +60,30 @@ class Chatroom extends React.Component {
     submitMessage(e) {
         e.preventDefault();
         const message = {
-            username: "Bianca Rosa",
+            username: "Leonardo Menezes",
             message: ReactDOM.findDOMNode(this.refs.msg).value,
-            img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
-            video_id: 1,
+            img: "blob:https://web.telegram.org/b76d8724-ec37-47d9-861c-e6c3466027f5",
+            video_id: 6328393,
             share_on_twitter: this.share_on_twitter,
         }
-        return axios.post(url + '/chat?video_id=' + message.video_id, message);
+        var that = this;
+        return axios.post(url + '/chat?video_id=' + message.video_id, message).then(function(response) {
+            that.setState({
+                chats: that.state.chats.concat(message)
+            }, () => {
+                ReactDOM.findDOMNode(that.refs.msg).value = "";
+            });
+        }).catch(function (error) {
+            console.error(error);
+        });;
     }
 
     changeShareOnTwitter() {
-        console.log(this.share_on_twitter);
         this.share_on_twitter = !this.share_on_twitter;
     }
 
     render() {
-        const username = "Bianca Rosa";
+        const username = "Leonardo Menezes";
         const { chats } = this.state;
 
         return (

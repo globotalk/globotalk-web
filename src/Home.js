@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const url = 'https://globotalk-back.herokuapp.com';
+// const url = 'http://localhost:3000';
 
 class Home extends React.Component {
     constructor(props) {
