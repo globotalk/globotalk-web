@@ -21,6 +21,8 @@ class Chatroom extends React.Component {
 
         this.getMessages();
 
+        setInterval(this.timer, 1000);
+        
         this.submitMessage = this.submitMessage.bind(this);
     }
 
@@ -40,6 +42,12 @@ class Chatroom extends React.Component {
     componentDidMount() {
         this.scrollToBot();
     }
+
+    
+    timer() {
+        console.log(this);
+    }
+
 
     componentDidUpdate() {
         this.scrollToBot();
