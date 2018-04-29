@@ -61,7 +61,7 @@ class Chatroom extends React.Component {
         e.preventDefault();
         const message = {
             username: "Bianca Rosa",
-            content: ReactDOM.findDOMNode(this.refs.msg).value,
+            message: ReactDOM.findDOMNode(this.refs.msg).value,
             img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
             video_id: 1,
             share_on_twitter: this.share_on_twitter,
