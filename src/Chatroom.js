@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import logo from './logo-globotalk.svg'; 
 
 import Message from './Message.js';
 
@@ -79,7 +79,7 @@ class Chatroom extends React.Component {
 
         return (
             <div className="chatroom">
-                <h3>Chilltime</h3>
+                <h3><img src={logo} className="logo"/></h3>
                 <ul className="chats" ref="chats">
                     {
                         chats.map((chat) => 
@@ -89,7 +89,9 @@ class Chatroom extends React.Component {
                 </ul>
                 <form className="input" onSubmit={(e) => this.submitMessage(e)}>
                     <input type="text" ref="msg" />
-                    <input type="submit" value="Submit" />
+                    <button type="submit">
+                        <i className="fas fa-angle-double-right"></i>
+                    </button>
                 </form>
             </div>
         );
