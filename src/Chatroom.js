@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo-globotalk.svg'; 
+import axios from 'axios';
 
 import Message from './Message.js';
+
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -11,6 +13,8 @@ class Chatroom extends React.Component {
         this.state = {
             chats: []
         };
+
+        this.url = 'https://globotalk-back.herokuapp.com';
 
         this.submitMessage = this.submitMessage.bind(this);
     }
@@ -29,11 +33,21 @@ class Chatroom extends React.Component {
 
     submitMessage(e) {
         e.preventDefault();
+        const message = ReactDOM.findDOMNode(this.refs.msg).value;
 
+        axios.post(this.url + '/chat', {
+            "message": message,
+            "topic": "content-1",
+            "share_on_twitter": true
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
         this.setState({
             chats: this.state.chats.concat([{
                 username: "Bianca Rosa",
-                content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
+                content: <p>{message}</p>,
                 img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
             }])
         }, () => {
