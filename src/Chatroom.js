@@ -6,6 +6,7 @@ import axios from 'axios';
 import Message from './Message.js';
 
 
+
 class Chatroom extends React.Component {
     constructor(props) {
         super(props);
@@ -31,25 +32,34 @@ class Chatroom extends React.Component {
         ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
     }
 
+
+    uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r & 0x3) | 0x8);
+            return v.toString(16);
+        });
+    }
+  
     submitMessage(e) {
         e.preventDefault();
-        const message = ReactDOM.findDOMNode(this.refs.msg).value;
-
+        const message = {
+            username: "Bianca Rosa",
+            content: ReactDOM.findDOMNode(this.refs.msg).value,
+            img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
+            status: 1, // Created
+        }
         axios.post(this.url + '/chat', {
-            "message": message,
-            "topic": "content-1",
-            "share_on_twitter": true
+            "message": message.content,
+            "video_id": 1, //TODO: Video instead of topic
+            "share_on_twitter": false,
+            "uuid": this.uuidv4()
         }).then(function (response) {
-            console.log(response);
+            message.status = 2; // Success
         }).catch(function (error) {
-            console.log(error);
-        });
+            message.status = 3; // Error
+        }); 
         this.setState({
-            chats: this.state.chats.concat([{
-                username: "Bianca Rosa",
-                content: <p>{message}</p>,
-                img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
-            }])
+            chats: this.state.chats.concat(message)
         }, () => {
             ReactDOM.findDOMNode(this.refs.msg).value = "";
         });
@@ -61,7 +71,7 @@ class Chatroom extends React.Component {
 
         return (
             <div className="chatroom">
-                <h3><img src={logo} className="logo"/></h3>
+                <h3><img src={logo} alt="globotalk" className="logo"/></h3>
                 <ul className="chats" ref="chats">
                     {
                         chats.map((chat) => 
