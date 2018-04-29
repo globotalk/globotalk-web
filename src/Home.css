@@ -1,0 +1,21 @@
+.home {
+    background-color: #191919;
+}
+
+.home .now-watching {
+    text-align: center;
+    color: #ccc;
+    font-weight: bold;
+    height: 80vh;
+    margin-top: 10vh;
+    padding: 1em;
+}
+
+.home .now-watching p {
+    margin-top: 0.7em;
+}
+
+.home .now-watching img {
+    height: 10em;
+    border-radius: 1em;
+}
