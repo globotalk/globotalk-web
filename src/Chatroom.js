@@ -14,12 +14,28 @@ class Chatroom extends React.Component {
         this.state = {
             chats: []
         };
-
+        
         this.url = 'https://globotalk-back.herokuapp.com';
 
+        this.getMessages();
+
+    
         this.submitMessage = this.submitMessage.bind(this);
     }
 
+    getMessages() {
+        axios.get(this.url + '/chat').then(function (response) {
+            console.log(response)
+            this.setState({
+                chats: this.state.chats.concat(response.data)
+            }, () => {
+                ReactDOM.findDOMNode(this.refs.msg).value = "";
+            });
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+ 
     componentDidMount() {
         this.scrollToBot();
     }
@@ -48,11 +64,11 @@ class Chatroom extends React.Component {
             img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
             status: 1, // Created
         }
+        const guid = this.uuidv4();
         axios.post(this.url + '/chat', {
             "message": message.content,
-            "video_id": 1, //TODO: Video instead of topic
-            "share_on_twitter": false,
-            "uuid": this.uuidv4()
+            "video_id": 1,
+            "share_on_twitter": false
         }).then(function (response) {
             message.status = 2; // Success
         }).catch(function (error) {
