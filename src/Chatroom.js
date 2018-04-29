@@ -4,7 +4,7 @@ import logo from './logo-globotalk.svg';
 import axios from 'axios';
 import './App.css';
 import Message from './Message.js';
-
+import _ from 'lodash';
 const url = 'https://globotalk-back.herokuapp.com';
 
 class Chatroom extends React.Component {
@@ -24,14 +24,14 @@ class Chatroom extends React.Component {
         var self = this;
         setInterval(function() {
             self.getMessages(self);
-        }, 100);
+        }, 1000);
     }
 
     getMessages(obj) {
         return axios.get(url + '/chat').then(function (response) {
-            if (response.data.length !== obj.state.chats.length) {
+            if (response.status == 200 && response.data.length !== obj.state.chats.length) {
                 obj.setState({
-                    chats: obj.state.chats.concat(response.data)
+                    chats: _.merge(response.data, obj.state.chats)
                 });
             }
         }).catch(function (error) {
