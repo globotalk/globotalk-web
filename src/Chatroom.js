@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import logo from './logo-globochat.svg'; 
+import logo from './logo-globotalk.svg'; 
 
 import Message from './Message.js';
 
