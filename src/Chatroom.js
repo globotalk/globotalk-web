@@ -18,6 +18,7 @@ class Chatroom extends React.Component {
         };
 
         this.share_on_twitter = false;
+        this.share_moment = false;
 
         this.getMessages(this);
 
