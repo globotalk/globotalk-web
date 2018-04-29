@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import Message from './Message.js';
 
-
+const url = 'https://globotalk-back.herokuapp.com';
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -17,18 +17,16 @@ class Chatroom extends React.Component {
 
         this.share_on_twitter = false;
 
-        this.url = 'https://globotalk-back.herokuapp.com';
-
         this.getMessages();
 
-        setInterval(this.timer, 1000);
-        
         this.submitMessage = this.submitMessage.bind(this);
+
+        setInterval(this.timer, 1000);
     }
 
     getMessages() {
         var that = this;
-        return axios.get(this.url + '/chat').then(function (response) {
+        return axios.get(url + '/chat').then(function (response) {
             that.setState({
                 chats: that.state.chats.concat(response.data)
             }, () => {
@@ -45,7 +43,16 @@ class Chatroom extends React.Component {
 
     
     timer() {
-        console.log(this);
+        var that = this;
+        return axios.get(url + '/chat').then(function (response) {
+            that.setState({
+                chats: that.state.chats.concat(response.data)
+            }, () => {
+                ReactDOM.findDOMNode(that.refs.msg).value = "";
+            });
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
 
 
@@ -55,14 +62,6 @@ class Chatroom extends React.Component {
 
     scrollToBot() {
         ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
-    }
-
-
-    uuidv4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r & 0x3) | 0x8);
-            return v.toString(16);
-        });
     }
 
     submitMessage(e) {
@@ -75,7 +74,7 @@ class Chatroom extends React.Component {
             share_on_twitter: this.share_on_twitter,
         }
         var that = this;
-        return axios.post(this.url + '/chat?video_id=' + message.video_id, message).then(function (response) {
+        return axios.post(url + '/chat?video_id=' + message.video_id, message).then(function (response) {
             that.setState({
                 chats: that.state.chats.concat(message)
             }, () => {
