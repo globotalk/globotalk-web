@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import logo from './logo-globotalk.svg';
 import './Home.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const url = 'https://globotalk-back.herokuapp.com';
 
@@ -41,7 +42,9 @@ class Home extends React.Component {
                         <p>Você está assistindo a...</p>
                         <p>{video.title}</p>
                         <img src={video.image}/>
-                        <button className="talk">talk!</button>
+                        <Link to="/chat">
+                            <button className="talk">talk!</button>
+                        </Link>
                     </div>
                 : null }
             </div>

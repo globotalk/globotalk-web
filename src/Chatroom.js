@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo-globotalk.svg';
 import axios from 'axios';
-
+import './App.css';
 import Message from './Message.js';
 
 const url = 'https://globotalk-back.herokuapp.com';
@@ -32,8 +32,6 @@ class Chatroom extends React.Component {
             if (response.data.length !== obj.state.chats.length) {
                 obj.setState({
                     chats: obj.state.chats.concat(response.data)
-                }, () => {
-                    ReactDOM.findDOMNode(obj.refs.msg).value = "";
                 });
             }
         }).catch(function (error) {
@@ -62,7 +60,6 @@ class Chatroom extends React.Component {
             video_id: 1,
             share_on_twitter: this.share_on_twitter,
         }
-        var that = this;
         return axios.post(url + '/chat?video_id=' + message.video_id, message);
     }
 
