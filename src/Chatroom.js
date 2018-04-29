@@ -12,8 +12,10 @@ class Chatroom extends React.Component {
         super(props);
 
         this.state = {
-            chats: []
+            chats: [],
         };
+
+        this.share_on_twitter = false;
 
         this.url = 'https://globotalk-back.herokuapp.com';
 
@@ -62,7 +64,7 @@ class Chatroom extends React.Component {
             content: ReactDOM.findDOMNode(this.refs.msg).value,
             img: "https://en.gravatar.com/userimage/29402383/633e9f144e450155ee10bf7bf2bc1077.jpeg",
             video_id: 1,
-            share_on_twitter: false,
+            share_on_twitter: this.share_on_twitter,
         }
         var that = this;
         return axios.post(this.url + '/chat?video_id=' + message.video_id, message).then(function (response) {
@@ -74,7 +76,11 @@ class Chatroom extends React.Component {
         }).catch(function (error) {
             console.error(error);
         });
+    }
 
+    changeShareOnTwitter() {
+        console.log(this.share_on_twitter);
+        this.share_on_twitter = !this.share_on_twitter;
     }
 
     render() {
@@ -93,6 +99,8 @@ class Chatroom extends React.Component {
                 </ul>
                 <form className="input" onSubmit={(e) => this.submitMessage(e)}>
                     <input type="text" ref="msg" />
+                    <input type="checkbox" onChange={() => this.changeShareOnTwitter()}/>
+                    <i className="fab fa-twitter"/>
                     <button type="submit">
                         <i className="fas fa-angle-double-right"></i>
                     </button>
