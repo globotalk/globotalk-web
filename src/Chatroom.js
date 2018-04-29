@@ -17,21 +17,25 @@ class Chatroom extends React.Component {
 
         this.share_on_twitter = false;
 
-        this.getMessages();
+        this.getMessages(this);
 
         this.submitMessage = this.submitMessage.bind(this);
 
-        setInterval(this.timer, 1000);
+        var self = this;
+        setInterval(function() {
+            self.getMessages(self);
+        }, 100);
     }
 
-    getMessages() {
-        var that = this;
+    getMessages(obj) {
         return axios.get(url + '/chat').then(function (response) {
-            that.setState({
-                chats: that.state.chats.concat(response.data)
-            }, () => {
-                ReactDOM.findDOMNode(that.refs.msg).value = "";
-            });
+            if (response.data.length !== obj.state.chats.length) {
+                obj.setState({
+                    chats: obj.state.chats.concat(response.data)
+                }, () => {
+                    ReactDOM.findDOMNode(obj.refs.msg).value = "";
+                });
+            }
         }).catch(function (error) {
             console.error(error);
         });
@@ -40,21 +44,6 @@ class Chatroom extends React.Component {
     componentDidMount() {
         this.scrollToBot();
     }
-
-    
-    timer() {
-        var that = this;
-        return axios.get(url + '/chat').then(function (response) {
-            that.setState({
-                chats: that.state.chats.concat(response.data)
-            }, () => {
-                ReactDOM.findDOMNode(that.refs.msg).value = "";
-            });
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
-
 
     componentDidUpdate() {
         this.scrollToBot();
@@ -74,15 +63,7 @@ class Chatroom extends React.Component {
             share_on_twitter: this.share_on_twitter,
         }
         var that = this;
-        return axios.post(url + '/chat?video_id=' + message.video_id, message).then(function (response) {
-            that.setState({
-                chats: that.state.chats.concat(message)
-            }, () => {
-                ReactDOM.findDOMNode(that.refs.msg).value = "";
-            });
-        }).catch(function (error) {
-            console.error(error);
-        });
+        return axios.post(url + '/chat?video_id=' + message.video_id, message);
     }
 
     changeShareOnTwitter() {
