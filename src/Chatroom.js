@@ -24,11 +24,11 @@ class Chatroom extends React.Component {
         var self = this;
         setInterval(function() {
             self.getMessages(self);
-        }, 1000);
+        }, 10000);
     }
 
     getMessages(obj) {
-        return axios.get(url + '/chat').then(function (response) {
+        return axios.get(url + '/all?video_id=6328393').then(function (response) {
             if (response.status == 200 && response.data.length !== obj.state.chats.length) {
                 obj.setState({
                     chats: _.merge(response.data, obj.state.chats)
