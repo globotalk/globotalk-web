@@ -65,6 +65,7 @@ class Chatroom extends React.Component {
             img: "blob:https://web.telegram.org/b76d8724-ec37-47d9-861c-e6c3466027f5",
             video_id: 6328393,
             share_on_twitter: this.share_on_twitter,
+            share_moment: this.share_moment
         }
         var that = this;
         return axios.post(url + '/chat?video_id=' + message.video_id, message).then(function(response) {
@@ -80,6 +81,10 @@ class Chatroom extends React.Component {
 
     changeShareOnTwitter() {
         this.share_on_twitter = !this.share_on_twitter;
+    }
+
+    changeMoment() {
+        this.share_moment = true;
     }
 
     render() {
@@ -100,6 +105,8 @@ class Chatroom extends React.Component {
                     <input type="text" ref="msg" />
                     <input type="checkbox" onChange={() => this.changeShareOnTwitter()}/>
                     <i className="fab fa-twitter"/>
+                    <input type="checkbox" onChange={() => this.changeMoment()}/>
+                    <i className="fas fa-film"/>
                     <button type="submit">
                         <i className="fas fa-angle-double-right"></i>
                     </button>
